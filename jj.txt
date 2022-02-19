@@ -1,0 +1,28 @@
+  <!-- <?php
+      // include('connect.php');
+    // ?> -->
+
+//Ne pas oublier de rajouter les balises php ici
+          // $out = "";
+          // $requete2 = "SELECT Departement FROM cheese ORDER BY departement";
+          // if ($result2 = pg_query($link, $requete2)) {
+          //    while ($ligne2 = pg_fetch_assoc($result2)) {
+          //      $dep = $ligne2["Departement"];
+          //      if(isset($_POST["criano"])){
+          <!-- //        $out .= "<option value='".$dep."' selected>".$ligne2['Departement']."</option>"; -->
+          //        }else{
+          <!-- //          $out .= "<option value='".$id."'>".$ligne2['region']."</option>";} -->
+          //      }
+          //
+          //    }
+          //  } else {
+          //    echo "Erreur de requête de base de données.";
+          //  }
+          //  echo $out;
+//balise php
+
+ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 schema=public dbname=FromageAOC user=postgres password=postgres" D:\les_documents\ProyectoWebMapping\Codes_source\documentosIniciales\COMMUNES_GEOJSON.geojson -nln Communes_Geojson
+ogr2ogr -f "PostgreSQL" PG:"host=localhost port=80 dbname=FromageAOC user=postgres password=postgres" D:\les_documents\ProyectoWebMapping\Codes_source\documentosIniciales\COMMUNES_GEOJSON.geojson -nln Communes_Geojson
+ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=FromageAOC user=postgres password=postgres" D:\les_documents\ProyectoWebMapping\Codes_source\documentosIniciales\COMMUNES_GEOJSON.geojson -nln Communes_Geojson -a_srs EPSG:4326
+ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=FromageAOC user=postgres password=postgres" "D:\les_documents\ProyectoWebMapping\Codes_source\documentosIniciales\test.geojson" -nln CommunesTest_Geojson -a_srs EPSG:4326
+ogr2ogr -f "PostgreSQL" PG:"dbname=my_database user=postgres" "source_data.json" -nln destination_table -append

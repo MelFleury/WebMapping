@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Carte Interactive des Fromages AOC de France</title>
+    <meta name = "viewport" content = "width=device-width, height=device-height, initial-scale=1.0, user-scalable=1">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
+    <link rel="stylesheet" href="../css/cheese.css">
+  </head>
+  <body>
+    <h2>Carte Interactive des Fromages AOC de France</h2>
+    <form method="get" action="../php/cheese.php">
+      <p>Choisis la région fromagère</p>
+      <select id='criano'>
+        <option value='' selected></option>
+      </select>
+      <p>Choisis un fromage AOC</p>
+      <select id='AOC'>
+        <option value=''selected></option>
+      </select>
+    </form>
+    <div id = "map"> </div>
+    <script src="../js/cheese.js" charset= "utf-8"></script>
+  </body>
+</html>
