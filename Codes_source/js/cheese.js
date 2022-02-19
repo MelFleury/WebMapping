@@ -5,6 +5,10 @@ var AOC = document.getElementById('AOC');
 
 fetch('../php/cheese.php')//connexion à la BD "FromageAOC" contenue dans le fichier php
 .then(result => result.text())
+.then(result => {
+  console.log(result);
+  document.getElementById('criano').innerHTML = result;//"<option value='toto' selected>bobo</option>";
+})
 result = criano;
 
 AOC.addEventListener('change', function(e){
