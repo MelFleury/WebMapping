@@ -1,6 +1,6 @@
 <?php
 //connexion à la base de donnée
-//include_once ('ConnectDatabaseCheese.php');
+include_once ('ConnectDatabaseCheese.php');
 
 
 //REQUETE AOC
@@ -13,16 +13,5 @@ while ($ligne = $result -> fetch()){
   echo "<option value='".$ligne['AppellationDorigineControlee']."'>".$ligne['AppellationDorigineControlee']."</option>";
 
 }
-$result -> closeCursor();
-?>
-
-<?php
-//REQUETE CRIANO
-$requeteCriano = 'SELECT a."AireDeProduction" FROM "AOC_HauteSavoie_geom" as a GROUP BY a."AireDeProduction";';
-$result = $connexion -> query($requeteCriano);
-  while ($Ligne = $result -> fetch()){
-
-    echo "<option value='".$ligne['AireDeProduction']."'>".$ligne['AireDeProduction']."</option>";
-    }
 $result -> closeCursor();
 ?>

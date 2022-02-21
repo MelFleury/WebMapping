@@ -3,7 +3,7 @@ var criano = document.getElementById('criano');
 var AOC = document.getElementById('AOC');
 
 
-fetch('../php/cheese.php')//connexion à la BD "FromageAOC" contenue dans le fichier php
+fetch('../php/Criano.php')//connexion à la BD "FromageAOC" contenue dans le fichier php
 .then(result => result.text())
 .then(result => {
   console.log(result);
@@ -11,18 +11,13 @@ fetch('../php/cheese.php')//connexion à la BD "FromageAOC" contenue dans le fic
 })
 result = criano;
 
-AOC.addEventListener('change', function(e){
-  var data = new FormData();
-  data.append('AOC_js', AOC.textContent.value);
-  fetch('../php/cheese.php',{
-    method:'post',
-    body: data
-  })
-  .then( result => result.text()) //normalement result.json
-  .then(result => {
-    document.getElementById('AOC').innerHTML = result;
+fetch('../php/AOC.php')//connexion à la BD "FromageAOC" contenue dans le fichier php
+.then(result => result.text())
+.then(result => {
+  console.log(result);
+  document.getElementById('AOC').innerHTML = result;//"<option value='toto' selected>bobo</option>";
 })
-})
+result = AOC;
 
 //Initialisation de la map
 const zoomLevelInit = 13
