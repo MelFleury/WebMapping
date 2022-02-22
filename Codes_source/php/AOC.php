@@ -2,8 +2,7 @@
 //connexion à la base de donnée
 include_once ('ConnectDatabaseCheese.php');
 
-
-//REQUETE AOC
+//REQUETE AOC POUR LE MENU DEROULANT 
 $AOC = [];
 $requeteAOC = 'SELECT a."AppellationDorigineControlee" FROM "AOC_HauteSavoie_geom" as a GROUP BY a."AppellationDorigineControlee";';
 $result = $connexion -> query($requeteAOC);
