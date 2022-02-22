@@ -38,9 +38,13 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
   fetch('../php/CrianoValDhab.php')
   .then(result => result.text())
   .then(result => {
-    document.getElementById('Geometry').innerHTML = result;
+    console.log(result);
+    L.polygon([
+      [result]
+    ]).addTo(mymap);
+    //document.getElementById('Geometry').innerHTML = result;
   })
-  result = Geometry;
+  //result = Geometry;
 
 ValDhab.addEventListener('click', onClick());
 function onClick(){
