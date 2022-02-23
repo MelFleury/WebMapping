@@ -36,11 +36,12 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
   mainLayer.addTo(mymap);
 
   fetch('../php/CrianoValDhab.php')
-  .then(result => result.text())
+  .then(result => result.json())
   .then(result => {
     console.log(result);
+    console.log(result['coordinates']);
     L.polygon([
-      [result[coordinates]]
+      [result['coordinates']]
     ]).addTo(mymap);
     //document.getElementById('Geometry').innerHTML = result;
   })
