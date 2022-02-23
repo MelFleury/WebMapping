@@ -1,10 +1,10 @@
 <?php
 include_once ('ConnectDatabaseCheese.php');
 //REQUETE CRIANO : "Val d'Abondance"
-$CrianoValDhab = "SELECT wkb_geometry FROM AOC_HauteSavoie_geom WHERE AireDeProduction = 'Val_Dabondance'";
+$CrianoValDhab = 'SELECT ST_AsText(wkb_geometry) FROM "AOC_HauteSavoie_geom";';
 $result = $connexion -> query($CrianoValDhab);
   while ($ligne = $result -> fetch()){
-    echo $ligne;
+    print_r ($ligne);
     }
 $result -> closeCursor();
 ?>
