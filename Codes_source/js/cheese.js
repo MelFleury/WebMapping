@@ -19,7 +19,7 @@ fetch('../php/AOC.php')
 result = AOC;
 
 //Initialisation de la map
-const zoomLevelInit = 13
+const zoomLevelInit = 8
 const View = {
   lat: 46.3005,
   long: 6.4737
@@ -40,17 +40,17 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
   .then(result => {
     console.log(result);
     L.polygon([
-      [result]
+      [result[coordinates]]
     ]).addTo(mymap);
     //document.getElementById('Geometry').innerHTML = result;
   })
   //result = Geometry;
 
-ValDhab.addEventListener('click', onClick());
-function onClick(){
-  for (let i = 0; i <= Geometry.length; i++){
-    var PolygCommunes = L.polygon([
-      [Geometry]
-    ]).addTo(mymap);
-  }
-}
+// ValDhab.addEventListener('click', onClick());
+// function onClick(){
+//   for (let i = 0; i <= Geometry.length; i++){
+//     var PolygCommunes = L.polygon([
+//       [Geometry]
+//     ]).addTo(mymap);
+//   }
+//}
