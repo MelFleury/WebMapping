@@ -19,10 +19,10 @@ fetch('../php/AOC.php')
 result = AOC;
 
 //Initialisation de la map
-const zoomLevelInit = 8
+const zoomLevelInit = 11
 const View = {
-  lat: 46.3005,
-  long: 6.4737
+  lat: 46.2792,
+  long: 6.7228
 }
 var mymap = L.map('map').setView([View.lat, View.long],zoomLevelInit);
 const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -38,13 +38,16 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
   fetch('../php/CrianoValDhab.php')
   .then(result => result.json())
   .then(result => {
-    console.log(result);
-    console.log(result['coordinates']);
+    console.log(result["json_build_object"]);
+    //console.log(result["json_build_object"][""\type"\"]);
+    //console.log(result['coordinates']);
     L.polygon([
-      [result['coordinates']]
+      [result["json_build_object"]]
     ]).addTo(mymap);
+    //L.geoJSON(result["json_build_object"]).addTo(mymap);
     //document.getElementById('Geometry').innerHTML = result;
   })
+
   //result = Geometry;
 
 // ValDhab.addEventListener('click', onClick());

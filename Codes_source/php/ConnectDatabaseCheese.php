@@ -9,7 +9,7 @@
     try{
       $connexion = new PDO($link);
       if($connexion){
-        echo "Connecte à $dbname sur $host avec succès!";
+        //echo "Connecte à $dbname sur $host avec succès!";
       }
     }catch (PDOException $e){
       die("Erreur de connexion");#return $e-> getMessage();#echo $e->getMessage();
