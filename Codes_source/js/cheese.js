@@ -38,7 +38,7 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
   fetch('../php/CrianoValDhab.php')
   .then(result => result.json())
   .then(result => {
-    console.log(result["json_build_object"]);
+    console.log(result.json_build_object);
     //console.log(result["json_build_object"][""\type"\"]);
     //console.log(result['coordinates']);
     L.polygon([
