@@ -1,16 +1,81 @@
-// Récupération des variables des menus de sélection
-var criano = document.getElementById('criano');
-var AOC = document.getElementById('AOC');
-var itemCri = criano.value;
-var itemAOC = AOC.value;
+var Criano = document.getElementById('Criano');
 
 fetch('../php/Criano.php')
 .then(result => result.text())
 .then(result => {
-  document.getElementById('criano').innerHTML = result;//"<option value='toto' selected>bobo</option>";
+  document.getElementById('Criano').innerHTML = result;//"<option value='toto' selected>bobo</option>";
+  Criano.addEventListener('change', ITEMCRI);
+  function ITEMCRI(){
+    switch(Criano.value){
+      case "Beaufortain, la Maurienne et la Tarentaise, une partie du Val d Arly":
+      fetch('../php/CrianoBeaufortain.php')
+      .then(result => result.json())
+      .then(result => {
+      console.log("HOLAAAAA");
+      L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+      mymap.removeLayer(result);
+    })
+    break;
+    case "Savoie et Haute-Savoie":
+    fetch('../php/CrianoSavoieHteSavoie.php')
+    .then(result => result.json())
+    .then(result => {
+    console.log("hello");
+    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+    mymap.removeLayer(result);
+  })
+    break;
+    case "Val_Dabondance":
+    fetch('../php/CrianoValDhab.php')
+    .then(result => result.json())
+    .then(result => {
+    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+    mymap.removeLayer(result);
+    })
+    break;
+    case "Massifs du Mont-Blanc, du Chablais, des Aravis et des Bauges":
+    fetch('../php/CrianoMassifs.php')
+    .then(result => result.json())
+    .then(result => {
+    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+    mymap.removeLayer(result);
+    })
+    break;
+
+  }
+}
 })
-result = criano;
-var ValDhab = criano.value[0];
+result = Criano;
+
+    // if (Criano.value == "Beaufortain, la Maurienne et la Tarentaise, une partie du Val d Arly"){
+    //   fetch('../php/CrianoBeaufortain.php')
+    //   .then(result => result.json())
+    //   .then(result => {
+    //     console.log("HOLAAAAA");
+    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+    //   })
+    // } else if (Criano.value == "Savoie et Haute-Savoie") {
+    //   fetch('../php/CrianoSavoieHteSavoie.php')
+    //   .then(result => result.json())
+    //   .then(result => {
+    //     console.log("hello");
+    //     console.log(result.json_build_object);
+    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+    //   })
+    // } else if (Criano.value == "Val_Dabondance") {
+    //   fetch('../php/CrianoValDhab.php')
+    //   .then(result => result.json())
+    //   .then(result => {
+    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+    //   })
+    // } else {
+    //   fetch('../php/CrianoMassifs.php')
+    //   .then(result => result.json())
+    //   .then(result => {
+    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
+    //   })
+    // }
+
 
 fetch('../php/AOC.php')
 .then(result => result.text())
@@ -19,8 +84,14 @@ fetch('../php/AOC.php')
 })
 result = AOC;
 
+// criano.addEventListener("change", itemCri);
+// function itemCri(){
+//   document.getElementById('criano').value = criano.value;
+// }
+//console.log(itemCri);
+
 //Initialisation de la map
-const zoomLevelInit = 11
+const zoomLevelInit = 8
 const View = {
   lat: 46.2792,
   long: 6.7228
@@ -35,23 +106,10 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
       zoomOffset: -1,
       accessToken: 'pk.eyJ1IjoibWVsb2RpZTE0NzEwIiwiYSI6ImNrdzJvZ3hhaWR3dTIybnM3ZDloZ2RpZTMifQ.5XOCx1H1VU-NURE8nTBPxg'});
   mainLayer.addTo(mymap);
-//if (itemCri == '')
-  fetch('../php/CrianoValDhab.php')
-  .then(result => result.json())
-  .then(result => {
-    //console.log(result.json_build_object);
-    //console.log(result["json_build_object"][""\type"\"]);
-    //console.log(result['coordinates']);
-    // L.polygon([
-    //   [result["json_build_object"]]
-    // ]).addTo(mymap);
-    //var json_comm = jQuery.parseJSON(result.json_build_object);
-    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    //document.getElementById('Geometry').innerHTML = result;
-  })
 
-  //result = Geometry;
 
+//   result = Geometry;
+//
 // ValDhab.addEventListener('click', onClick());
 // function onClick(){
 //   for (let i = 0; i <= Geometry.length; i++){
@@ -59,4 +117,4 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
 //       [Geometry]
 //     ]).addTo(mymap);
 //   }
-//}
+// }

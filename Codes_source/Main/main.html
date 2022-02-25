@@ -14,15 +14,14 @@
   <body>
     <h2>Carte Interactive des Fromages AOC de France</h2>
     <form method="get" action="../php/cheese.php">
-      <p>Choisis la région fromagère</p>
-      <select id='criano'>
-        <option value='toto' selected>bobo</option>
-      </select>
-      <p>Choisis un fromage AOC</p>
-      <select id='AOC'>
-        <option value=''selected></option>
-      </select>
+        <select id='Criano'>
+          <option value=selected>Select criano</option>
+        </select>
+        <select id='AOC'>
+          <option value=selected>Select AOC</option>
+        </select>
     </form>
+    <div id = "showAOC"></div>
     <div id = "map"> </div>
     <script src="../js/cheese.js" charset= "utf-8"></script>
   </body>
