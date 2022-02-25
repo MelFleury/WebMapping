@@ -1,7 +1,8 @@
 // Récupération des variables des menus de sélection
 var criano = document.getElementById('criano');
 var AOC = document.getElementById('AOC');
-var Geometry = [];
+var itemCri = criano.value;
+var itemAOC = AOC.value;
 
 fetch('../php/Criano.php')
 .then(result => result.text())
@@ -34,17 +35,18 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
       zoomOffset: -1,
       accessToken: 'pk.eyJ1IjoibWVsb2RpZTE0NzEwIiwiYSI6ImNrdzJvZ3hhaWR3dTIybnM3ZDloZ2RpZTMifQ.5XOCx1H1VU-NURE8nTBPxg'});
   mainLayer.addTo(mymap);
-
+//if (itemCri == '')
   fetch('../php/CrianoValDhab.php')
   .then(result => result.json())
   .then(result => {
-    console.log(result.json_build_object);
+    //console.log(result.json_build_object);
     //console.log(result["json_build_object"][""\type"\"]);
     //console.log(result['coordinates']);
-    L.polygon([
-      [result["json_build_object"]]
-    ]).addTo(mymap);
-    //L.geoJSON(result["json_build_object"]).addTo(mymap);
+    // L.polygon([
+    //   [result["json_build_object"]]
+    // ]).addTo(mymap);
+    //var json_comm = jQuery.parseJSON(result.json_build_object);
+    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
     //document.getElementById('Geometry').innerHTML = result;
   })
 
