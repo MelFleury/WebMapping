@@ -1,94 +1,79 @@
 var Criano = document.getElementById('Criano');
+var AOC = document.getElementById('AOC');
+var nameAOC = document.getElementById('showAOC');
+
+var groupeCri = new L.FeatureGroup();
+var groupeAOC = new L.FeatureGroup();
 
 fetch('../php/Criano.php')
 .then(result => result.text())
 .then(result => {
-  document.getElementById('Criano').innerHTML = result;//"<option value='toto' selected>bobo</option>";
+  document.getElementById('Criano').innerHTML = result;
   Criano.addEventListener('change', ITEMCRI);
   function ITEMCRI(){
-    switch(Criano.value){
-      case "Beaufortain, la Maurienne et la Tarentaise, une partie du Val d Arly":
-      fetch('../php/CrianoBeaufortain.php')
-      .then(result => result.json())
-      .then(result => {
-      console.log("HOLAAAAA");
-      L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-      mymap.removeLayer(result);
+    groupeCri.clearLayers();
+    groupeAOC.clearLayers();
+    itemCri = Criano.value;
+    let dataCri = new FormData();
+    dataCri.append('ItemCri', itemCri);
+    fetch('../php/ItemCriano.php', {
+      method: 'post',
+      body: dataCri
     })
-    break;
-    case "Savoie et Haute-Savoie":
-    fetch('../php/CrianoSavoieHteSavoie.php')
     .then(result => result.json())
     .then(result => {
-    console.log("hello");
-    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    mymap.removeLayer(result);
-  })
-    break;
-    case "Val_Dabondance":
-    fetch('../php/CrianoValDhab.php')
-    .then(result => result.json())
-    .then(result => {
-    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    mymap.removeLayer(result);
-    })
-    break;
-    case "Massifs du Mont-Blanc, du Chablais, des Aravis et des Bauges":
-    fetch('../php/CrianoMassifs.php')
-    .then(result => result.json())
-    .then(result => {
-    L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    mymap.removeLayer(result);
-    })
-    break;
-
+    groupeCri.addLayer(L.geoJSON(JSON.parse(result.json_build_object),
+    {
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup('<h2>'+feature.properties.nom+'</h2><p><b>Code Insee:</b> '+feature.properties.insee+'</p><p><b>AOC de la commune:</b> '+feature.properties.AppellationDorigineControlee+'</p><p><b>Surface:</b> '+feature.properties.surf_ha+' ha</p>');
+    }
   }
-}
+  )
+  );
+    mymap.addLayer(groupeCri);
+  })
+  }
+  //groupeCri.addEventListener('click', InfoCri);
+  // function InfoCri(){
+  //   onEachFeature: function ()
+  //   groupeCri.bindPopup('<h1>').openPopup();
+  // }
+
 })
 result = Criano;
-
-    // if (Criano.value == "Beaufortain, la Maurienne et la Tarentaise, une partie du Val d Arly"){
-    //   fetch('../php/CrianoBeaufortain.php')
-    //   .then(result => result.json())
-    //   .then(result => {
-    //     console.log("HOLAAAAA");
-    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    //   })
-    // } else if (Criano.value == "Savoie et Haute-Savoie") {
-    //   fetch('../php/CrianoSavoieHteSavoie.php')
-    //   .then(result => result.json())
-    //   .then(result => {
-    //     console.log("hello");
-    //     console.log(result.json_build_object);
-    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    //   })
-    // } else if (Criano.value == "Val_Dabondance") {
-    //   fetch('../php/CrianoValDhab.php')
-    //   .then(result => result.json())
-    //   .then(result => {
-    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    //   })
-    // } else {
-    //   fetch('../php/CrianoMassifs.php')
-    //   .then(result => result.json())
-    //   .then(result => {
-    //     L.geoJSON(JSON.parse(result.json_build_object)).addTo(mymap);
-    //   })
-    // }
 
 
 fetch('../php/AOC.php')
 .then(result => result.text())
 .then(result => {
   document.getElementById('AOC').innerHTML = result;//"<option value='toto' selected>bobo</option>";
+  AOC.addEventListener('change', ITEMAOC);
+  function ITEMAOC(){
+    groupeCri.clearLayers();
+    groupeAOC.clearLayers();
+    itemAOC = AOC.value;
+    let dataAOC = new FormData();
+    dataAOC.append('ItemAOC', itemAOC);
+    fetch('../php/ItemAOC.php', {
+      method: 'post',
+      body: dataAOC
+    })
+    .then(result => result.json())
+    .then(result => {
+    groupeAOC.addLayer(L.geoJSON(JSON.parse(result.json_build_object),
+    {
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup('<h2>'+feature.properties.nom+'</h2><p><b>Type de lait:</b> '+feature.properties.Lait+'</p><p><b>Région fromagère:</b> '+feature.properties.AireDeProduction+"</p><p><b>Année d'obtention de l'AOC:</b> "+feature.properties.AnneeDobtentionDeLAOC+'</p>');
+    }
+  })
+  );
+    mymap.addLayer(groupeAOC);
+    nameAOC.textContent = AOC.value;
+
+})
+}
 })
 result = AOC;
-
-// criano.addEventListener("change", itemCri);
-// function itemCri(){
-//   document.getElementById('criano').value = criano.value;
-// }
-//console.log(itemCri);
 
 //Initialisation de la map
 const zoomLevelInit = 8
@@ -106,15 +91,3 @@ const mainLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{
       zoomOffset: -1,
       accessToken: 'pk.eyJ1IjoibWVsb2RpZTE0NzEwIiwiYSI6ImNrdzJvZ3hhaWR3dTIybnM3ZDloZ2RpZTMifQ.5XOCx1H1VU-NURE8nTBPxg'});
   mainLayer.addTo(mymap);
-
-
-//   result = Geometry;
-//
-// ValDhab.addEventListener('click', onClick());
-// function onClick(){
-//   for (let i = 0; i <= Geometry.length; i++){
-//     var PolygCommunes = L.polygon([
-//       [Geometry]
-//     ]).addTo(mymap);
-//   }
-// }
